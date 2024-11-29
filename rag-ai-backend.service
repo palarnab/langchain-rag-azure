@@ -1,0 +1,13 @@
+[Unit]
+Description=RAGaiBackend Server
+After=multi-user.target
+
+[Service]
+ExecStart=/home/ec2-user/.nvm/versions/node/v20.12.2/bin/node /home/ec2-user/rag-ai-backend/src/server.js
+Restart=always
+RestartSec=10
+SyslogIdentifier=rag-ai-backend-dev
+User=ec2-user
+
+[Install]
+WantedBy=multi-user.target

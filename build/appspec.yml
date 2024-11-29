@@ -1,0 +1,17 @@
+version: 0.0
+os: linux
+files:
+    - source: /public
+      destination: /home/ec2-user/rag-poc-backend/public/
+    - source: /server.js
+      destination: /home/ec2-user/rag-poc-backend/
+file_exists_behavior: OVERWRITE
+hooks:
+    ApplicationStop:
+        - location: scripts/stop_server
+          timeout: 300
+          runas: root
+    ApplicationStart:
+        - location: scripts/start_server
+          timeout: 300
+          runas: root
