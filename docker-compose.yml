@@ -1,0 +1,28 @@
+version: "3.9"
+services:
+  langchain-rag-azure:
+    container_name: langchain-rag-azure
+    image: frombehindtheshutter/langchain-rag-azure:latest
+    ports:
+      - 11000:5000
+    restart: unless-stopped
+    environment:
+      - PORT=5000
+      - NODE_ENV=development
+      - LOG_LEVEL=error
+      - SERVERNAME=rag-ai-poc
+      - KNOWN_ORIGINS=*
+      - MONGO_URI_IDENTITY=
+      - MONGO_URI_HISTORY=
+      - PWD_SALT=
+      - CRYPTO_SECRET=
+      - CRYPTO_EXPIRE=7
+      - JWT_SECRET=
+      - JWT_EXPIRE=7d
+      - JWT_COOKIE_EXPIRE=7
+      - PINECONE_APIKEY=
+      - AZURE_OPENAI_API_KEY=
+      - AZURE_OPENAI_API_INSTANCE_NAME=
+      - AZURE_OPENAI_API_VERSION=2024-08-01-preview
+      - AZURE_OPENAI_API_CHAT_DEPLOYMENT_NAME=gpt-4o-mini
+      - AZURE_OPENAI_API_EMBEDDING_DEPLOYMENT_NAME=text-embedding-ada-002

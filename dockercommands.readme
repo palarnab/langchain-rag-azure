@@ -1,0 +1,8 @@
+docker ps -a
+docker build -t frombehindtheshutter/langchain-rag-azure .
+docker login
+docker image tag frombehindtheshutter/langchain-rag-azure frombehindtheshutter/langchain-rag-azure:0.0.1
+docker push frombehindtheshutter/langchain-rag-azure
+docker push frombehindtheshutter/langchain-rag-azure:0.0.1
+docker image tag frombehindtheshutter/langchain-rag-azure frombehindtheshutter/langchain-rag-azure:0.0.2
+docker image tag frombehindtheshutter/langchain-rag-azure:0.0.2 frombehindtheshutter/langchain-rag-azure:latest
