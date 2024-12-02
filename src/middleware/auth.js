@@ -4,20 +4,27 @@ const asyncHandler = require('./async');
 const ErrorResponse = require('../utils/errorResponse');
 const repository = require('../services/auth/repository');
 
-exports.protectExperimental = asyncHandler(async (req, res, next) => {
-    if (req.headers.experimental === 'true') {
-        next();
-    } else {
-        return next(
-            new ErrorResponse('Experimental API allowance required', 407)
-        );
-    }
-});
-
-exports.open = asyncHandler(async (req, res, next) => {
+const setIp = (req) => {
     req.isTest = req.headers.testkey === 'playground';
-    next();
-});
+    try {
+        const ip = req.headers['x-forwarded-for'] || req.ip;
+        req.ipAdd = ip;
+    } catch (err) {
+        console.log('error reading ip');
+        req.ipAdd = '0.0.0.0';
+    }
+};
+
+const setHost = (req) => {
+    try {
+        req.isTest = req.headers.testkey === 'playground';
+        const protocol = req.headers['x-forwarded-proto'] || req.protocol;
+        const host = req.headers['host'] || req.hostname;
+        req.hostUrl = `${protocol}://${host}`;
+    } catch (err) {
+        req.hostUrl = 'https://host';
+    }
+};
 
 exports.protectRoot = asyncHandler(async (req, res, next) => {
     if (req.headers.authorization === 'blindman') {
@@ -29,6 +36,9 @@ exports.protectRoot = asyncHandler(async (req, res, next) => {
 
 exports.protect = asyncHandler(async (req, res, next) => {
     let token;
+
+    setHost(req);
+    setIp(req);
 
     if (
         req.headers.authorization &&
