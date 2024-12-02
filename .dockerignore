@@ -1,7 +1,11 @@
 node_modules
 Dockerfile
-docker-compose.yaml
+docker-compose.yml
+dockercommands.readme
+jasmine.conf.js
+jasmine.json
 .env
+.env.sample
 .dockerignore
 .git
 .gitignore
