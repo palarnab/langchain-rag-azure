@@ -12,13 +12,13 @@ exports.ask = asyncHandler(async (req, res, next) => {
         );
     }
 
-    const { question, index, sessionId } = req.body;
+    const { question, index, sessionId, history } = req.body;
 
-    const historicalChat = await getChats({
+    const historicalChat = history === true ? await getChats({
         userId: req.user.id,
         sessionId,
         index,
-    });
+    }) : {_id: sessionId, history: []};
 
     const aiResponse = await generateAnswer(question, historicalChat, index);
 
@@ -32,6 +32,8 @@ exports.ask = asyncHandler(async (req, res, next) => {
         unmodifiedQuestion: question,
         answer: aiResponse.answer,
         aiMessage: { intermediate, final },
+        sourceIp: req.ipAdd,
+        tokenUsed,
     });
 
     log({

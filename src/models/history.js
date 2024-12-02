@@ -13,6 +13,10 @@ const HistorySchema = new mongoose.Schema(
             type: String,
             required: true,
         },
+        tokenUsed: {
+            type: Number,
+            default: 0,
+        },
         history: [
             {
                 _id: false,
@@ -26,6 +30,12 @@ const HistorySchema = new mongoose.Schema(
                     required: true,
                 },
                 unmodifiedMsg: {
+                    type: String,
+                },
+                isValid: {
+                    type: Boolean,
+                },
+                sourceIp: {
                     type: String,
                 },
                 response: {
