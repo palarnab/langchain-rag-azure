@@ -32,6 +32,9 @@ const HistorySchema = new mongoose.Schema(
                 unmodifiedMsg: {
                     type: String,
                 },
+                isValid: {
+                    type: Boolean,
+                },
                 sourceIp: {
                     type: String,
                 },

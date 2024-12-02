@@ -26,6 +26,11 @@ const setHost = (req) => {
     }
 };
 
+exports.open = asyncHandler(async (req, res, next) => {
+    req.isTest = req.headers.testkey === 'playground';
+    next();
+});
+
 exports.protectRoot = asyncHandler(async (req, res, next) => {
     if (req.headers.authorization === 'blindman') {
         next();

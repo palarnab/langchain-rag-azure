@@ -101,10 +101,12 @@ const convertHistory = (chat) => {
 
     for (i = 0; i < chat.history.length; i++) {
         const chatMessage = chat.history[i];
-        if (chatMessage.user === 'ai') {
-            chatHistory.push(new AIMessage(chatMessage.message));
-        } else {
-            chatHistory.push(new HumanMessage(chatMessage.message));
+        if (chatMessage.isValid) {
+            if (chatMessage.user === 'ai') {
+                chatHistory.push(new AIMessage(chatMessage.message));
+            } else {
+                chatHistory.push(new HumanMessage(chatMessage.message));
+            }
         }
     }
 

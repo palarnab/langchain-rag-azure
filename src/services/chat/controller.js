@@ -14,11 +14,11 @@ exports.ask = asyncHandler(async (req, res, next) => {
 
     const { question, index, sessionId, history } = req.body;
 
-    const historicalChat = (history === 'true' || history === true) ? await getChats({
+    const historicalChat = history === true ? await getChats({
         userId: req.user.id,
         sessionId,
         index,
-    }) : {history: []};
+    }) : {_id: sessionId, history: []};
 
     const aiResponse = await generateAnswer(question, historicalChat, index);
 
